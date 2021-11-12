@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-1.11.2.js"></script>
+    <script src="js/mock-min.js"></script>
+    <script src="mock/login.js"></script>
+	<script src="mock/json.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/login.js"></script>
+
+    <script>
+       $(function(){
+           let jwt=localStorage.getItem("jwt");
+           if(jwt){
+               $.ajax({
+                   url:"check.php",
+                   type:"post",
+                   headers:{"token":localStorage.getItem("jwt")},
+                   dataType:"json",
+                   success:function(res){
+					   res=JSON.parse(res);
+					   console.log(res)
+                       if(res.result=="success"){
+                           location.href="manage.html";
+                       }
+                   }
+               })
+           }
+
+           $("#btn").click(function(){
+               $.ajax({
+                   url:"check.php?action=login",
+                   type:"post",
+                   data:{userName:$("#userName").val(),pwd:$("#pwd").val()},
+                   dataType:"json",
+                   success:function(res){
+                       console.log(res);
+                       if(res.result=="success"){
+                           localStorage.setItem("jwt",res.jwt);
+                           location.href="manage.html";
+                       } else {
+                           $("#tips").html(res.msg);
+                       }
+                   }
+
+               })
+           })
+       })
+    </script>
+</head>
+<body>
+    <img src="img/bg_reg_wave.png" alt="">
+    <div id="container"> 
+        <ul> 
+         <li id="gly">管理员登录</li> 
+        </ul> 
+          <div class="content">
+                <span>用户名:</span>
+                <input type="text" id="userName" class="userName"><br>
+                <span>密&nbsp;&nbsp;&nbsp;码:</span>
+                <input type="password" id="pwd" class="rpwd"><br>
+                <div class="code">
+                    <span id="yzm">验证码:</span>
+                    <input type="text" value="" placeholder="请输入验证码（不区分大小写）" class="input-val">
+                    <canvas id="canvas" width="100" height="30"></canvas>
+                   </div>
+                   <label><input name="tenDays" id="day" type="checkbox" value="登录">十天内免登录<br></label>
+                   <button class="btn" id="btn">登&nbsp;&nbsp;&nbsp;录</button>
+        </div> 
+        
+        </div> 
+       
+</body>
+</html>

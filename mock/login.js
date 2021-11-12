@@ -1,6 +1,6 @@
-var data = Mock.mock("check.php","post",function(options){
+var data = Mock.mock("check.php?action=login","post",function(options){
     console.log("options",options);//ajax请求信息 url 方法 数据body
-    var data=JSON.parse(options.body);
+    var url=new URLSearchParams(options.body);
     var userName=data.userName;
     var pwd=data.pwd;
     if(userName=="admin" && pwd=="123"){
