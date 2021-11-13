@@ -42,6 +42,8 @@ header input{
     position: absolute;
     left: 60px;
     font-size: 20px;
+    outline: none;
+    color: #d3d3d3;
 }
 header button{
     text-align: center;
@@ -152,4 +154,87 @@ a:hover{
 }
 #right section .reg a:hover{
     text-decoration: underline;
+}
+/*点击登录之后弹出的页面*/
+#mask{
+    background: #999;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: transparent;
+}
+#mask #login{
+    width: 500px;
+    height: 400px;
+    background: #16161a;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -300px;
+    margin-top: -250px;
+    padding: 0px 20px;
+    text-align: center;
+    border: 1px solid #202025;
+    border-radius: 10px;
+    line-height: 80px;
+}
+#login label{
+    font-size: 20px;
+    color: #d3d3d3;
+    font-weight: bold;
+    margin-right: 20px;
+}
+#login input#userName,#login input#pwd{
+    width: 200px;
+    height: 40px;
+    border-radius: 10px; 
+}
+#login input#pwd{
+    margin-left: 19px;
+}
+#login input#sryzm{
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    margin-left: 30px;
+    position: absolute;
+    top: 181px;
+    left: 80px;
+}
+#login input:last-child{
+    width: 200px;
+    height: 60px;
+    color: #d3d3d3;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 10px;
+    background: #ea8011;
+}
+#login input{
+    font-size: 20px;
+    border: none;
+    outline: none;
+    padding: 2px 20px;
+}
+/*图形化验证码*/
+canvas#yzm{
+    border: 1px solid #000;
+    background: #ccc;
+    margin-left: 10px;
+    margin-top: 10px;
+    position: absolute;
+    top: 166px;
+    right: 96px;
+}
+#login div{
+    position: relative;
+    top: 35px;
+}
+#login img{
+    float: right;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
