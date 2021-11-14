@@ -33,7 +33,52 @@
                 if($("#sryzm").text!=$("#yzm").text()){
                     $("#tips2").text("验证码错误！");
                 }
-            })
+            });
+            //点击登录按钮 进行验证
+            $("#btn3").click(function(){
+                $.ajax({
+                    url:"check.php?action=login",
+                    type:"POST",
+                    data:{userName:$("#userName").val(),pwd:$("#pwd").val()},
+                    dataType:"json",
+                    success:function(){
+                        //验证成功，将jwt-token持久化到localStorage中
+                        if(data.result=="success"){
+                            localStorage.setItem("jwt",data.jwt);
+                            location.href="会员登陆成功.html";
+                        }else{
+                            $("#tips1").text(data.msg);
+                        }
+                    }
+                })
+            });
+            //如果jwt不是空，则发送给接口进行验证
+            var jwt=localStorage.getItem("jwt");
+            if(!!jwt){
+                $.ajax({
+                    url:"check.php",
+                    type:"GET",
+                    headers:{
+                        "X-token":localStorage.getItem("jwt")
+                    },
+                    dataType:"json",
+                    success:function(){
+                        //验证通过，从负载中取出数据
+                        if(data.result=="success"){
+                            location.href="会员登陆成功.html";
+                        }else{
+                            $("#tips1").text(data.msg);
+                        }
+                    }
+                });
+
+                $("#userName").focus(function(){
+                    $("#tips1").text("");
+                });
+                $("#pwd").focus(function(){
+                    $("#tips1").text("");
+                })
+            }
         })
     </script>
 </head>

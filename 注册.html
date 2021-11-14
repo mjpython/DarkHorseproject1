@@ -6,27 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>欢迎注册</title>
     <link rel="stylesheet" href="css/style.css">
+    <style type="text/css">
+		select{
+			padding: 5px;
+			border-radius: 5px;
+			outline: none;
+            width: 80px;
+            margin-left: 10px;
+		}
+	</style>
     <script src="js/jquery-1.11.2.js"></script>
     <script src="js/mock-min.js"></script>
     <script src="mock/recheck.js"></script>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/select.js"></script>
     <script>
         $(function(){
             $("#reg_btn").click(function(){
-            $.ajax({
-                url:"recheck.php",
-                type:"POST",
-                contentType:"application/json",
-                data:JSON.stringify({userName:$("#userName").val(),pwd:$("#pwd").val()}),
-                dataType:"json",
-                success:function(data){
-                    if(data.status=="10001"){
-                        $("#tips3").html(data.msg);
-                    }else{
-                        $("#tips3").html(data.msg);
+                $.ajax({
+                    url:"recheck.php",
+                    type:"POST",
+                    contentType:"application/json",
+                    data:JSON.stringify({userName:$("#userName").val(),pwd:$("#pwd").val()}),
+                    dataType:"json",
+                    success:function(data){
+                        if(data.status=="10001"){
+                            $("#tips3").html(data.msg);
+                        }else{
+                            $("#tips3").html(data.msg);
+                        }
                     }
-                }
+                })
             })
-        })
         })
     </script>
 </head>
@@ -49,32 +60,19 @@
                     </tr>
                     <tr>
                         <td><span id="t">*</span>生日</td>
-                        <td>
+                        <td id="date">
                             <select name="year" id="year">
-                                <option selected>请选择</option>
-                                <script>
-                                    for(i=1990;i<2021;i++){
-                                        document.write("<option value='"+i+"'>"+i+"</options>");
-                                    }
-                                </script>
-                            </select>年
+                                <option value="">年份</option>
+                            </select>
+                    
                             <select name="month" id="month">
-                                <option selected></option>
-                                <script>
-                                    for(i=1;i<13;i++){
-                                        document.write("<option value='"+i+"'>"+i+"</options>");
-                                    }
-                                </script>
-                            </select>月
-                            <select name="day" id="day">
-                                <option selected></option>
-                                <script>
-                                    for(i=1;i<31;i++){
-                                        document.write("<option value='"+i+"'>"+i+"</options>");
-                                    }
-                                </script>
-                            </select>日
-                        </td>
+                                <option value="">月份</option>
+                            </select>
+                        
+                            <select id="days" class="day">
+                                <option value="">日期</option>
+                            </select>
+                        </td>        
                     </tr>
                     <tr>
                         <td></td>
@@ -105,4 +103,18 @@
         </section>
     </div>
 </body>
+<script type="text/javascript">
+    $(function(){
+        $("#date").selectDate()
+        
+        $("#days").focusout(function(){
+            var year = $("#year option:selected").html()
+            var month = $("#month option:selected").html()
+            var day = $("#days option:selected").html()
+            console.log(year+month+day)
+        })
+        
+    })
+    
+</script>
 </html>
