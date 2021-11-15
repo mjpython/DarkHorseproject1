@@ -31,6 +31,7 @@
         btn2.onclick=function(){
             mask.style.display="block";
             login.style.display="block";
+            btn2.disabled=false;
         }
         x.onclick=function(){
             mask.style.display="none";

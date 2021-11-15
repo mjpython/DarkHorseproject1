@@ -9,9 +9,11 @@
     <script src="js/jquery-1.11.2.js"></script>
     <script src="js/mock-min.js"></script>
     <script src="mock/login.js"></script>
+    <script src="mock/message.js"></script>
     <script src="js/public.js"></script>
     <script>
         $(function(){
+        
             $("#btn3").click(function(){
                 $.ajax({
                     url:"check.php",
@@ -37,7 +39,7 @@
             //点击登录按钮 进行验证
             $("#btn3").click(function(){
                 $.ajax({
-                    url:"check.php?action=login",
+                    url:"check.php?action='login'",
                     type:"POST",
                     data:{userName:$("#userName").val(),pwd:$("#pwd").val()},
                     dataType:"json",
@@ -79,6 +81,29 @@
                     $("#tips1").text("");
                 })
             }
+        
+            
+            //页面初始化，显示已审核过的留言
+            $.ajax({
+                url:"data.php",
+                type:"POST",
+                dataType:"json",
+                success:function(data){
+                    console.log("data",data);
+                    data=data.data;
+                    var str=" ";
+                        for(var i=0;i<data.length;i++){
+                            if(data[i].shenhe==1){
+                                str+="<tr class=tr_content><td>"
+                                    +data[i].name+"<br>"
+                                    +" "+data[i].date+"<br>"
+                                    +" "+data[i].content+"<br>"
+                                    +" "+(data[i].reply!=null ? ('管理员回复:'+data[i].reply) :(" "))+"</td></tr>"
+                            } 
+                            }  
+                    $("#t_content").html(str);
+                }
+            })
         })
     </script>
 </head>
@@ -97,8 +122,11 @@
                <li><a href="#">发布留言</a></li>
            </ul>
         </div>
+        
         <div id="content">
-            
+            <table id="t_content">
+                
+            </table>
         </div>
         <div id="right">
             <section>

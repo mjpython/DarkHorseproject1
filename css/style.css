@@ -111,6 +111,7 @@ a:hover{
 
 #content{
     width: 680px;
+    background: none;
 }
 #right{
     width: 200px;
@@ -250,6 +251,15 @@ canvas#yzm{
     position: absolute;
     top: 5px;
     right: 5px;
+}
+/*中间--留言部分*/
+.tr_content{
+    width: 600px;
+    height: 150px;
+    border: 1px solid #202025;
+    padding: 5px 10px;
+    background-color: #16161a;
+    margin-bottom: 10px;
 }
 /*注册页面*/
 body.reg{

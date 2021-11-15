@@ -4,10 +4,10 @@ var data = Mock.mock("check.php","post",function(options){
     var userName=data.userName;
     var pwd=data.pwd;
     if(userName=="admin" && pwd=="123"){
-        return Mock.mock({"status":"110","msg":"ok","data":userName});
+        return Mock.mock({"status":"110","msg":"ok","result":"success","data":userName});
     }
     if(userName=="tom" && pwd=="123"){
-        return Mock.mock({"status":"10001","msg":"ok","data":userName});
+        return Mock.mock({"status":"10001","msg":"ok","result":"success","data":userName});
     }else{
         return Mock.mock({"status":"30001","msg":"用户名或密码错误！"});
     }
