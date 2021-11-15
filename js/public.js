@@ -63,3 +63,14 @@
            }
     }
 })();
+(function(){
+    window.onload=function(){
+        var face=document.getElementById("face");
+        var img1=document.getElementById("img1");
+        if(face!=null && img1!=null){
+            face.onchange=function(){
+                img1.src="./images/face/"+face.value;
+            }
+        }
+    }
+})();

@@ -56,7 +56,7 @@
             });
             //如果jwt不是空，则发送给接口进行验证
             var jwt=localStorage.getItem("jwt");
-            if(!!jwt){
+            if(jwt){
                 $.ajax({
                     url:"check.php",
                     type:"GET",
@@ -66,7 +66,7 @@
                     dataType:"json",
                     success:function(){
                         //验证通过，从负载中取出数据
-                        if(data.result=="success"){
+                        if(data.msg=="ok"){
                             location.href="会员登陆成功.html";
                         }else{
                             $("#tips1").text(data.msg);
@@ -94,16 +94,18 @@
                     var str=" ";
                         for(var i=0;i<data.length;i++){
                             if(data[i].shenhe==1){
-                                str+="<tr class=tr_content><td>"
-                                    +data[i].name+"<br>"
-                                    +" "+data[i].date+"<br>"
-                                    +" "+data[i].content+"<br>"
-                                    +" "+(data[i].reply!=null ? ('管理员回复:'+data[i].reply) :(" "))+"</td></tr>"
+                                var f=Math.ceil(Math.random()*20);
+                                    str+="<tr><td class=td_content>"
+                                    +"<div class=f_content><img src='./images/face/"+f+".jpg' width='30'></div>"
+                                    +"<div class=n_content>"+data[i].name+"</div><br>"
+                                    +"<div class=d_content>"+data[i].date+"</div><br>"
+                                    +"<div class=c_content>"+data[i].content+"</div><br>"
+                                    +"<div class=r_content>"+((data[i].reply)? ('管理员回复:'+data[i].reply) :(" "))+"</div></td></tr>"      
                             } 
                             }  
                     $("#t_content").html(str);
                 }
-            })
+            });
         })
     </script>
 </head>
@@ -123,7 +125,7 @@
            </ul>
         </div>
         
-        <div id="content">
+        <div id="ccontent">
             <table id="t_content">
                 
             </table>

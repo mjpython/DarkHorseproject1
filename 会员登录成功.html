@@ -7,7 +7,59 @@
     <title>留言板</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-1.11.2.js"></script>
+    <script src="js/mock-min.js"></script>
+    <script src="mock/message.js"></script>
+    <script src="mock/leavemessage.js"></script>
     <script src="js/public.js"></script>
+    <script>
+        $(function(){
+            //页面初始化，显示已审核过的留言
+            $.ajax({
+                url:"data.php",
+                type:"POST",
+                dataType:"json",
+                success:function(data){
+                    console.log("data",data);
+                    data=data.data;
+                    var str=" ";
+                        for(var i=0;i<data.length;i++){
+                            if(data[i].shenhe==1){
+                                var f=Math.ceil(Math.random()*20);
+                                    str+="<tr><td class=td_content>"
+                                    +"<div class=f_content><img src='./images/face/"+f+".jpg' width='30'></div>"
+                                    +"<div class=n_content>"+data[i].name+"</div><br>"
+                                    +"<div class=d_content>"+data[i].date+"</div><br>"
+                                    +"<div class=c_content>"+data[i].content+"</div><br>"
+                                    +"<div class=r_content>"+((data[i].reply)? ('管理员回复:'+data[i].reply) :(" "))+"</div></td></tr>"      
+                            } 
+                            }  
+                    $("#t_content").html(str);
+                }
+            })
+            //点击发布留言
+            $("#fabu").click(function(){
+                $("#fabu_content").show();
+            });
+            //点击按钮发布 留言
+            $("#fb_btn").click(function(){
+                $.ajax({
+                    url:"leavemessage.php",
+                    type:"POST",
+                    contentType:"application/json",
+                    data:JSON.stringify({userName:$("#userName").val(),content:$("#content").val()}),
+                    dataType:"json",
+                    success:function(data){
+                        if(data.status=="10001"){
+                            $("#fb_tips").text(data.msg);
+                            $("#fabu_content").hide();
+                        }else{
+                            $("#fb_tips").text(data.msg);
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 </head>
 <body class="index">
     <div id="container">
@@ -21,11 +73,51 @@
         <div id="left">
            <ul>
                <li><a href="#">浏览留言</a></li>
-               <li><a href="#">发布留言</a></li>
+               <li><a href="#" id="fabu">发布留言</a></li>
            </ul>
         </div>
-        <div id="content">
-            
+        <div id="ccontent">
+            <div id="fabu_content" style="display: none;">
+                <table>
+                    <form action="leavemessage.php" method="post">
+                        <tr>
+                            <td>昵称：</td>
+                            <td>
+                                <input type="text" name="userName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>头像：</td>
+                            <td>
+                                <select name="face" id="face">
+                                    <script>
+                                        for(var i=1;i<=21;i++){
+                                            document.write("<option value='"+i+".jpg'>");
+                                                document.write(i+".jpg");
+                                            document.write("</option>");
+                                        }
+                                    </script>
+                                </select>
+                                <img src="./images/face/1.jpg" id="img1" width="30">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>内容：</td>
+                            <td>
+                                <textarea id="content" name="content" cols="30" rows="10"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" id="fb_btn" value="发表留言"></td>
+                            <td><span id="fb_tips"></span></td>
+                        </tr>
+                    </form>
+                    
+                </table>
+            </div>
+            <table id="t_content">
+                
+            </table>
         </div>
         <div id="right">
             

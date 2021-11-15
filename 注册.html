@@ -27,11 +27,12 @@
                     url:"recheck.php",
                     type:"POST",
                     contentType:"application/json",
-                    data:JSON.stringify({userName:$("#userName").val(),pwd:$("#pwd").val()}),
+                    data:JSON.stringify({userName:$("#userName").val(),pwd:$("#pwd").val(),birthday:$("#birthday").val()}),
                     dataType:"json",
                     success:function(data){
                         if(data.status=="10001"){
                             $("#tips3").html(data.msg);
+                            location.href="首页.html";
                         }else{
                             $("#tips3").html(data.msg);
                         }
@@ -102,16 +103,19 @@
             </div>
         </section>
     </div>
+    <div id="birthday" style="display: none;"></div>
 </body>
 <script type="text/javascript">
     $(function(){
         $("#date").selectDate()
-        
+    
         $("#days").focusout(function(){
             var year = $("#year option:selected").html()
             var month = $("#month option:selected").html()
             var day = $("#days option:selected").html()
             console.log(year+month+day)
+        
+            $("#birthday").val(year+month+day);
         })
         
     })

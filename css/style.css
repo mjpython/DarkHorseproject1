@@ -67,7 +67,7 @@ body.index{
 .index button:hover{
     background: #e51c22;
 }
-#left,#content,#right{
+#left,#ccontent,#right{
     height: 700px;
     float: left;
     text-align: left;
@@ -109,7 +109,7 @@ a:hover{
     color: #EA8011;
 }
 
-#content{
+#ccontent{
     width: 680px;
     background: none;
 }
@@ -253,14 +253,45 @@ canvas#yzm{
     right: 5px;
 }
 /*中间--留言部分*/
-.tr_content{
-    width: 600px;
+#ccontent{
+    padding-top: 0px;
+    border: none;
+}
+.td_content{
+    width: 680px;
     height: 150px;
     border: 1px solid #202025;
-    padding: 5px 10px;
+    padding: 10px 10px;
     background-color: #16161a;
-    margin-bottom: 10px;
+    border-radius: 5px;
 }
+/*给表格中的tr设置间隔，首先将tr转换成块元素*/
+tr{
+    display: block;
+    margin-bottom: 15px;
+}
+.f_content{
+    float: left;
+    margin-right: 10px;
+}
+.f_content img{
+    border-radius: 15px;
+}
+.n_content{
+    font-size: 16px;
+    font-weight: bold;
+}
+.d_content{
+    font-size: 12px;
+    font-weight: lighter;
+    margin-top: -13px;
+}
+.c_content,.r_content{
+    font-size: 16px;
+    margin-left: 30px;
+}
+/*会员登录成功页面*/
+
 /*注册页面*/
 body.reg{
     background: url(../images/reg_bg.png);
