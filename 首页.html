@@ -61,7 +61,7 @@
                     url:"check.php",
                     type:"GET",
                     headers:{
-                        "X-token":localStorage.getItem("jwt")
+                        "user-token":localStorage.getItem("jwt")
                     },
                     dataType:"json",
                     success:function(){
