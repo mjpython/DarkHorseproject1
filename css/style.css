@@ -291,7 +291,25 @@ tr{
     margin-left: 30px;
 }
 /*会员登录成功页面*/
-
+#fabu_content{
+    width: 655px;
+    height: 320px;
+    border: 1px solid #202025;
+    padding: 10px 10px;
+    background-color: #16161a;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+#fabu_content input,#fabu_content textarea{
+    border-radius: 5px;
+    padding: 5px 0px;
+}
+#fabu_content #fb_btn{
+    background: #ea8011;
+    color: #d3d3d3;
+    border: none;
+    width: 70px;
+}
 /*注册页面*/
 body.reg{
     background: url(../images/reg_bg.png);
@@ -334,6 +352,9 @@ span#t{
     padding: 2px 10px;
     border: 1px solid #d3d3d3;
     margin-left: 20px;
+}
+#left1 input#userName{
+    margin-left: 34px;
 }
 #left1 img#phone{
     position: absolute;
