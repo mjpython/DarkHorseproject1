@@ -7,53 +7,40 @@
     <title>留言板</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-1.11.2.js"></script>
-    <script src="js/mock-min.js"></script>
-    <script src="mock/login.js"></script>
-    <script src="mock/message.js"></script>
     <script src="js/public.js"></script>
+    <script src="js/mock-min.js"></script>
+    <!-- <script src="mock/login.js"></script> -->
+    <script src="mock/message.js"></script>
     <script>
         $(function(){
         
             $("#btn3").click(function(){
                 $.ajax({
-                    url:"check.php",
+                    url:"check.php?action=login",
                     type:"POST",
                     contentType:"application/json",
                     data:JSON.stringify({userName:$("#userName").val(),pwd:$("#pwd").val()}),
                     dataType:"json",
                     success:function(data){
                         if(data.status=="10001"){
+                            localStorage.setItem("jwt",data.jwt);
                             location.href="会员登录成功.html";
                         }else{
                             $("#tips1").html(data.msg);
                         }
                         if(data.status=="110"){
+                            localStorage.setItem("jwt",data.jwt);
                             location.href="管理员登录成功.html"
                         }
                     }
                 })
-                if($("#sryzm").text!=$("#yzm").text()){
+                if($("#sryzm").val()!=yzmtext){
                     $("#tips2").text("验证码错误！");
+                }else{
+                    $("#tips2").text("");
                 }
             });
-            //点击登录按钮 进行验证
-            $("#btn3").click(function(){
-                $.ajax({
-                    url:"check.php?action='login'",
-                    type:"POST",
-                    data:{userName:$("#userName").val(),pwd:$("#pwd").val()},
-                    dataType:"json",
-                    success:function(){
-                        //验证成功，将jwt-token持久化到localStorage中
-                        if(data.result=="success"){
-                            localStorage.setItem("jwt",data.jwt);
-                            location.href="会员登陆成功.html";
-                        }else{
-                            $("#tips1").text(data.msg);
-                        }
-                    }
-                })
-            });
+           
             //如果jwt不是空，则发送给接口进行验证
             var jwt=localStorage.getItem("jwt");
             if(jwt){
@@ -61,7 +48,7 @@
                     url:"check.php",
                     type:"GET",
                     headers:{
-                        "user-token":localStorage.getItem("jwt")
+                        "X-token":localStorage.getItem("jwt")
                     },
                     dataType:"json",
                     success:function(){

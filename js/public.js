@@ -1,3 +1,4 @@
+var yzmtext;
 (function(){
     var lo={};//全局
     function addEvent(elem,eventType,func){
@@ -20,23 +21,24 @@
     lo.addEvent=addEvent;
     window.lo=lo;
 })();
+
 (function(){
-    window.onload=function(){
+    lo.addEvent(window,"load",function(){
         /*登录弹窗*/ 
         var container=document.getElementById("container");
         var btn2=document.getElementById("btn2");
         var mask=document.getElementById("mask");
         var login=document.getElementById("login");
         var x=document.getElementById("x");
-        btn2.onclick=function(){
+        lo.addEvent(btn2,"click",function(){
             mask.style.display="block";
             login.style.display="block";
             btn2.disabled=false;
-        }
-        x.onclick=function(){
+        })
+        lo.addEvent(x,"click",function(){
             mask.style.display="none";
             login.style.display="none";
-        }
+        })
         /*图形化验证码*/
         var yzm=document.getElementById("yzm");
            var c=yzm.getContext("2d");//通过dom对象获取绘图对象
@@ -48,29 +50,32 @@
                 c.clearRect(0,0,150,50); //清空画布区域
                 c.beginPath();
                 c.fillStyle="#202025";
+                yzmtext="";
                 for(var i=0;i<4;i++){
                    x=20+(30*i);
                    y=20+Math.ceil(Math.random()*25);
                    fontsize=20+Math.ceil(Math.random()*10);
                    c.font="blod "+fontsize+"px Arial";
+                   var d=str.substr(postion,1);
+                   yzmtext+=d;
                    postion=Math.ceil(Math.random()*35);
-                   c.fillText(str.substr(postion,1),x,y,300);
+                   c.fillText(d,x,y,300);
                 }
            }
            yzmshow();
-           yzm.onclick=function(){
+           lo.addEvent(yzm,"click",function(){
                yzmshow();
-           }
-    }
+           })
+    })
 })();
 (function(){
-    window.onload=function(){
+    lo.addEvent(window,"load",function(){
         var face=document.getElementById("face");
         var img1=document.getElementById("img1");
         if(face!=null && img1!=null){
-            face.onchange=function(){
+            lo.addEvent(face,"change",function(){
                 img1.src="./images/face/"+face.value;
-            }
+            })
         }
-    }
+    })
 })();
