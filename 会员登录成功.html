@@ -12,7 +12,33 @@
     <script src="mock/leavemessage.js"></script> -->
     <script src="js/public.js"></script>
     <script>
+		var current="";
         $(function(){
+			
+			//如果jwt不是空，则发送给接口进行验证
+			var jwt=localStorage.getItem("jwt");
+			if(!!jwt){
+			    $.ajax({
+			        url:"check.php",
+			        type:"GET",
+			        headers:{
+			            "X-token":localStorage.getItem("jwt")
+			        },
+			        dataType:"json",
+			        success:function(data){
+						
+			            //验证通过，从负载中取出数据
+			            if(data.result=="success"){
+							//alert(data.info.data.userName);
+							current=data.info.data.userName;
+							$("#userName").val(current);
+			                //location.href="会员登录成功.html";
+			            }else{
+			                $("#tips1").text(data.msg);
+			            }
+			        }
+			    });
+	        }
             //页面初始化，显示已审核过的留言
             $.ajax({
                 url:"data.php",
@@ -27,7 +53,7 @@
                                 var f=Math.ceil(Math.random()*20);
                                     str+="<tr><td class=td_content>"
                                     +"<div class=f_content><img src='./images/face/"+f+".jpg' width='30'></div>"
-                                    +"<div class=n_content>"+data[i].name+"</div><br>"
+                                    +"<div class=n_content>"+data[i].userName+"</div><br>"
                                     +"<div class=d_content>"+data[i].date+"</div><br>"
                                     +"<div class=c_content>"+data[i].content+"</div><br>"
                                     +"<div class=r_content>"+((data[i].reply)? ('管理员回复:'+data[i].reply) :(" "))+"</div></td></tr>"      
@@ -80,12 +106,7 @@
             <div id="fabu_content" style="display: none;">
                 <table>
                     <form action="leavemessage.php" method="post">
-                        <tr>
-                            <td>昵称：</td>
-                            <td>
-                                <input type="text" name="userName">
-                            </td>
-                        </tr>
+						<input type="text" id="userName" style="display: none;">
                         <tr>
                             <td>头像：</td>
                             <td>

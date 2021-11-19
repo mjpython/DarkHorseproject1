@@ -68,6 +68,8 @@ else{
 }
 }
 echo json_encode($res);
+mysqli_free_result($rs);
+mysqli_close($conn);
 }else{
 	//非登录操作
 	//验证请求头，token为空报错，非法登录
@@ -92,7 +94,6 @@ echo json_encode($res);
 	}
 	echo json_encode($res);
 }
-mysqli_free_result($rs);
-mysqli_close($conn);
+
 
 ?>
